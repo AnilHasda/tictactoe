@@ -1,0 +1,266 @@
+<html>
+<head>
+<style type="text/css">
+*{
+box-sizing:border-box;
+margin:0;
+}
+body{
+margin:;
+background:#708ab1;
+
+}
+.container{
+position:relative;
+height:60%;
+width:100%;
+background:#dd8e58;
+border:none;
+overflow:hidden;
+display:grid;
+grid-template-rows:repeat(3,33.33%);
+grid-template-columns:repeat(3,33.33%);
+}
+.block{
+border:2px solid;
+}
+.top{
+border-top:none;
+}
+.container div:hover .trans{
+background:pink;
+height:50px;
+width:50px;
+transition:height 2s,width 2s;
+}
+.block{
+text-align:center;
+padding-top:35%;
+font-size:40px;
+}
+.turn{
+height:150px;
+width:100%;
+background:#08546c;
+display:grid;
+place-items:center;
+}
+.heading{
+height:100px;
+width:100%;
+display:grid;
+place-items:center;
+background:#b80e65;
+}
+#row1{
+position:absolute;
+top:160;
+height:5px;
+width:100%;
+background:red;
+z-index:1;
+}
+#row2{
+position:absolute;
+top:300;
+height:5px;
+width:100%;
+background:red;
+z-index:1;
+}
+#row3{
+position:absolute;
+top:430;
+height:5px;
+width:100%;
+background:red;
+z-index:1;
+}
+#col1{
+position:absolute;
+top:100;
+left:58;
+height:60%;
+width:5px;
+background:gold;
+z-index:1;
+}
+#col2{
+position:absolute;
+top:100;
+left:178;
+height:60%;
+width:5px;
+background:gold;
+z-index:1;
+}
+#col3{
+position:absolute;
+top:100;
+left:298;
+height:60%;
+width:5px;
+background:gold;
+z-index:1;
+}
+#cross1{
+position:absolute;
+top:-36;
+left:0;
+height:80%;
+width:5px;
+background:green;
+z-index:1;
+transform:rotate(41deg);
+transform-origin:bottom;
+}
+#cross2{
+position:absolute;
+top:-36;
+right:0;
+height:80%;
+width:5px;
+background:green;
+z-index:1;
+transform:rotate(-41deg);
+transform-origin:bottom;
+}
+.line{
+display:none;
+}
+span{
+display:none;
+}
+</style>
+</head>
+<body>
+<div class="line"id="row1"></div>
+<div class="line"id="row2"></div>
+<div class="line"id="row3"></div>
+<div class="line"id="col1"></div>
+<div class="line"id="col2"></div>
+<div class="line"id="col3"></div>
+<div class="line"id="cross1"></div>
+<div class="line"id="cross2"></div>
+<div class="heading"><h3>TicTacToe App</h3></div>
+<div class="container">
+<div class="top block"onclick="game('div1')"id="div1"><span>1</span></div><div class="top block"id="div2"onclick="game('div2')"><span>2</span></div><div class="top block"id="div3"onclick="game('div3')"><span>3</span></div>
+<div class="block"id="div4"onclick="game('div4')"><span>4</span></div><div class="block"id="div5"onclick="game('div5')"><span>5</span></div><div class="block"id="div6"onclick="game('div6')"><span>6</span></div>
+<div class="block"id="div7"onclick="game('div7')"><span>7</span></div><div class="block"id="div8"onclick="game('div8')"><span>8</span></div><div class="block"id="div9"onclick="game('div9')"><span>9</span></div>
+</div>
+<div class="turn"><h3>Cross will start a match</h3></div>
+<script type="text/javascript">
+let div1=document.getElementById("div1");
+let div2=document.getElementById("div2");
+let div3=document.getElementById("div3");
+let div4=document.getElementById("div4");
+let div5=document.getElementById("div5");
+let div6=document.getElementById("div6");
+let div7=document.getElementById("div7");
+let div8=document.getElementById("div8");
+let div9=document.getElementById("div9");
+let winner;
+let sachu=0;
+let crss=function x(block){
+let result=document.querySelector("#"+block);
+result.innerHTML="X";
+}
+let zer=function zero(block){
+let result=document.querySelector("#"+block);
+result.innerHTML=0;
+}
+function chkWinner(){
+if((div1.innerHTML==div2.innerHTML && div1.innerHTML==div3.innerHTML)
+||(div1.innerHTML==div4.innerHTML && div1.innerHTML==div7.innerHTML)
+||(div7.innerHTML==div8.innerHTML && div7.innerHTML==div9.innerHTML)
+||(div3.innerHTML==div6.innerHTML && div3.innerHTML==div9.innerHTML)
+||(div3.innerHTML==div5.innerHTML && div3.innerHTML==div7.innerHTML)
+||(div2.innerHTML==div5.innerHTML && div2.innerHTML==div8.innerHTML)
+||(div4.innerHTML==div5.innerHTML && div4.innerHTML==div6.innerHTML)
+||(div1.innerHTML==div5.innerHTML && div1.innerHTML==div9.innerHTML)
+){
+//
+if(div1.innerHTML==div2.innerHTML && div1.innerHTML==div3.innerHTML){
+let line=document.querySelector("#row1");
+line.classList.remove("line");
+}
+else if(div4.innerHTML==div5.innerHTML && div4.innerHTML==div6.innerHTML){
+let line=document.querySelector("#row2");
+line.classList.remove("line");
+}
+else if(div7.innerHTML==div8.innerHTML && div7.innerHTML==div9.innerHTML){
+let line=document.querySelector("#row3");
+line.classList.remove("line");
+}
+else if(div1.innerHTML==div4.innerHTML && div1.innerHTML==div7.innerHTML){
+let line=document.querySelector("#col1");
+line.classList.remove("line");
+}
+else if(div2.innerHTML==div5.innerHTML && div2.innerHTML==div8.innerHTML){
+let line=document.querySelector("#col2");
+line.classList.remove("line");
+}
+else if(div3.innerHTML==div6.innerHTML && div3.innerHTML==div9.innerHTML){
+let line=document.querySelector("#col3");
+line.classList.remove("line");
+}
+else if(div1.innerHTML==div5.innerHTML && div1.innerHTML==div9.innerHTML){
+let line=document.querySelector("#cross2");
+line.classList.remove("line");
+}
+else if(div3.innerHTML==div5.innerHTML && div3.innerHTML==div7.innerHTML){
+let line=document.querySelector("#cross1");
+line.classList.remove("line");
+}
+//
+
+if(winner==`Your turn mr/mrs <h3 class="tran">zero</h3>`){
+setTimeout(()=>{
+alert("Congratulations Cross you win the match");
+},100)
+turn.innerHTML="Congratulations Cross you win the match"
+}
+
+
+else{
+setTimeout(()=>{
+alert("Congratulations Zero you win the match");
+},100)
+turn.innerHTML="Congratulations Zero you win the match"
+}
+
+
+setInterval(()=>{
+location.reload();
+},5000)
+}
+else{
+if(sachu==9){
+alert("game Draw");
+setInterval(()=>{
+location.reload();
+},5000)
+turn.innerHTML="Game draw wait to restart loading....."
+}
+}
+}
+let turn=document.querySelector(".turn");
+function game(block){
+sachu++;
+if(sachu<10){
+if(sachu%2==1){
+crss(block)
+turn.innerHTML=`Your turn mr/mrs <h3 class="tran">zero</h3>`;
+winner=turn.innerHTML;
+}
+else{
+zer(block);
+turn.innerHTML=`Your turn mr/mrs <h3 class="tran">cross</h3>`;
+winner=turn.innerHTML;
+}
+chkWinner();
+}
+}
+</script>
+</body>
+</html>
